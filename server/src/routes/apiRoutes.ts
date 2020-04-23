@@ -10,7 +10,7 @@ class ApiRoutes{
     }
 
     config():void {
-        this.router.get('/getAlumnos', apiController.getAlumnos);
+        this.router.get('/getEscuelas', apiController.getEscuelas);
     }
 
 }

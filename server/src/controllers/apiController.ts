@@ -4,9 +4,9 @@ import pool from '../database';
 
 class ApiController {
 
-    public async getAlumnos(req: Request, res: Response) {
-        const alumnos = await pool.query('SELECT * FROM alumno');
-        res.json(alumnos);
+    public async getEscuelas(req: Request, res: Response) {
+        const escuelas = await pool.query('SELECT * FROM ESCUELA');
+        res.json(escuelas);
     }
 }
 
