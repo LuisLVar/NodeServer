@@ -8,7 +8,7 @@ class ApiRoutes {
         this.config();
     }
     config() {
-        this.router.get('/getAlumnos', apiController_1.apiController.getAlumnos);
+        this.router.get('/getEscuelas', apiController_1.apiController.getEscuelas);
     }
 }
 const apiRoutes = new ApiRoutes();
