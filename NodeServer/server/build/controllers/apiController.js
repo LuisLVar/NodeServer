@@ -26,29 +26,29 @@ class ApiController {
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const personas = yield database_1.default.query('SELECT * FROM PERSONAL WHERE usuario = ? AND password = ?', [emp.usuario, emp.password]);
+            const personas = yield database_1.default.query('select * from personal where usuario = ? and password = ?', [emp.usuario, emp.password]);
             res.json(personas);
         });
     }
     //Ciclo
     getCiclos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const ciclos = yield database_1.default.query('SELECT * FROM CICLO');
+            const ciclos = yield database_1.default.query('select * from ciclo');
             res.json(ciclos);
         });
     }
     crearCiclo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const ciclo = yield database_1.default.query('INSERT INTO CICLO (YEAR) \
-    VALUES (?)', [emp.year]);
+            const ciclo = yield database_1.default.query('insert into ciclo (year) \
+    values (?)', [emp.year]);
             res.json(ciclo);
         });
     }
     eliminarCiclo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const ciclo = yield database_1.default.query('DELETE FROM CICLO WHERE ciclo=?', [emp.ciclo]);
+            const ciclo = yield database_1.default.query('delete from ciclo where ciclo=?', [emp.ciclo]);
             res.json(ciclo);
         });
     }
@@ -56,7 +56,7 @@ class ApiController {
     existeAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const personas = yield database_1.default.query('SELECT * FROM ALUMNO WHERE nombre = ? AND apellido = ? AND id_alumno = ?', [emp.nombre, emp.apellido, emp.idalumno]);
+            const personas = yield database_1.default.query('select * from alumno where nombre = ? and apellido = ? and id_alumno = ?', [emp.nombre, emp.apellido, emp.idalumno]);
             if (isEmptyObject(personas)) {
                 res.json({ existe: false });
             }
@@ -67,30 +67,30 @@ class ApiController {
     }
     getAlumnos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const alumnos = yield database_1.default.query('SELECT * FROM ALUMNO');
+            const alumnos = yield database_1.default.query('select * from alumno');
             res.json(alumnos);
         });
     }
     crearAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const alumnos = yield database_1.default.query('INSERT INTO ALUMNO (NOMBRE,APELLIDO,DIRECCION,TELEFONO,CUI,ENCARGADO,FECHA_NACIMIENTO,ESTADO) \
-        VALUES (?,?,?,?,?,?,?,?)', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui, emp.encargado, emp.fecha_nacimiento, emp.estado]);
+            const alumnos = yield database_1.default.query('insert into alumno (nombre,apellido,direccion,telefono,cui,encargado,fecha_nacimiento,estado) \
+        values (?,?,?,?,?,?,?,?)', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui, emp.encargado, emp.fecha_nacimiento, emp.estado]);
             res.json(alumnos);
         });
     }
     eliminarAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const alumnos = yield database_1.default.query('UPDATE ALUMNO SET estado = 0 WHERE id_alumno=?', [emp.id_alumno]);
+            const alumnos = yield database_1.default.query('update alumno set estado = 0 where id_alumno=?', [emp.id_alumno]);
             res.json(alumnos);
         });
     }
     actualizarAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const alumnos = yield database_1.default.query('UPDATE ALUMNO SET NOMBRE =?,APELLIDO=?,DIRECCION=?,TELEFONO=?,CUI=?, \
-        ENCARGADO=?,FECHA_NACIMIENTO=?,ESTADO=? WHERE id_alumno=?', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui,
+            const alumnos = yield database_1.default.query('update alumno set nombre =?,apellido=?,direccion=?,telefono=?,cui=?, \
+        encargado=?,fecha_nacimiento=?,estado=? where id_alumno=?', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui,
                 emp.encargado, emp.fecha_nacimiento, emp.estado, emp.id_alumno]);
             res.json({ msg: 'Exito: Alumno modificado' });
         });
@@ -99,7 +99,7 @@ class ApiController {
     existeAspecto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const aspectos = yield database_1.default.query('SELECT * FROM ASPECTO WHERE nombre = ?', [emp.nombre]);
+            const aspectos = yield database_1.default.query('select * from aspecto where nombre = ?', [emp.nombre]);
             if (isEmptyObject(aspectos)) {
                 res.json({ existe: false });
             }
@@ -110,29 +110,29 @@ class ApiController {
     }
     getAspectos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const aspectos = yield database_1.default.query('SELECT * FROM ASPECTO');
+            const aspectos = yield database_1.default.query('select * from aspecto');
             res.json(aspectos);
         });
     }
     crearAspecto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const aspectos = yield database_1.default.query('INSERT INTO ASPECTO (NOMBRE) \
-    VALUES (?)', [emp.nombre]);
+            const aspectos = yield database_1.default.query('insert into aspecto (nombre) \
+    values (?)', [emp.nombre]);
             res.json(aspectos);
         });
     }
     eliminarAspecto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const aspectos = yield database_1.default.query('DELETE FROM ASPECTO WHERE aspecto=? AND nombre=?', [emp.aspecto, emp.nombre]);
+            const aspectos = yield database_1.default.query('delete from aspecto where aspecto=? and nombre=?', [emp.aspecto, emp.nombre]);
             res.json(aspectos);
         });
     }
     actualizarAspecto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const aspectos = yield database_1.default.query('UPDATE ASPECTO SET nombre =? WHERE aspecto=?', [emp.nombre, emp.aspecto]);
+            const aspectos = yield database_1.default.query('update aspecto set nombre =? where aspecto=?', [emp.nombre, emp.aspecto]);
             res.json(aspectos);
         });
     }
@@ -140,7 +140,7 @@ class ApiController {
     existeGrado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const grados = yield database_1.default.query('SELECT * FROM GRADO WHERE nombre = ?', [emp.nombre]);
+            const grados = yield database_1.default.query('select * from grado where nombre = ?', [emp.nombre]);
             if (isEmptyObject(grados)) {
                 res.json({ existe: false });
             }
@@ -151,29 +151,29 @@ class ApiController {
     }
     getGrados(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const grados = yield database_1.default.query('SELECT * FROM GRADO');
+            const grados = yield database_1.default.query('select * from grado');
             res.json(grados);
         });
     }
     crearGrado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const grados = yield database_1.default.query('INSERT INTO GRADO (NOMBRE) \
-    VALUES (?);', [emp.nombre]);
+            const grados = yield database_1.default.query('insert into grado (nombre) \
+    values (?)', [emp.nombre]);
             res.json(grados);
         });
     }
     eliminarGrado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const grados = yield database_1.default.query('DELETE FROM GRADO WHERE grado=? AND nombre=?', [emp.grado, emp.nombre]);
+            const grados = yield database_1.default.query('delete from grado where grado=? and nombre=?', [emp.grado, emp.nombre]);
             res.json(grados);
         });
     }
     actualizarGrado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const grados = yield database_1.default.query('UPDATE GRADO SET nombre =? WHERE grado=?', [emp.nombre, emp.grado]);
+            const grados = yield database_1.default.query('update grado set nombre =? where grado=?', [emp.nombre, emp.grado]);
             res.json(grados);
         });
     }
@@ -181,7 +181,7 @@ class ApiController {
     getSeccionGrado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const grados = yield database_1.default.query('SELECT SECCION.seccion, SECCION.nombre FROM SECCION JOIN GRADO ON SECCION.GRADO_grado = GRADO.grado WHERE GRADO.nombre =?', [emp.nombre]);
+            const grados = yield database_1.default.query('select seccion.seccion, seccion.nombre from seccion join grado on seccion.grado_grado = grado.grado where grado.nombre =?', [emp.nombre]);
             res.json(grados);
         });
     }
@@ -189,30 +189,30 @@ class ApiController {
     crearInscripcion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const inscripcion = yield database_1.default.query('INSERT INTO INSCRIPCION VALUES (?,?,?)', [emp.fecha, emp.seccion, emp.alumno]);
+            const inscripcion = yield database_1.default.query('insert into inscripcion values (?,?,?)', [emp.fecha, emp.seccion, emp.alumno]);
             res.json(inscripcion);
         });
     }
     eliminarInscripcion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const inscripcion = yield database_1.default.query('DELETE FROM INSCRIPCION WHERE SECCION_seccion=? AND ALUMNO_alumno=?', [emp.seccion, emp.alumno]);
+            const inscripcion = yield database_1.default.query('delete from inscripcion where seccion_seccion=? and alumno_alumno=?', [emp.seccion, emp.alumno]);
             res.json(inscripcion);
         });
     }
     //Secciones
     getSecciones(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const secciones = yield database_1.default.query('SELECT SECCION.seccion, SECCION.nombre, SECCION.estado, GRADO.nombre AS "nombre_grado", \
-    PERSONAL.nombre AS "nombre_personal", GRADO.grado, PERSONAL.id_personal FROM SECCION JOIN GRADO ON SECCION.GRADO_grado = GRADO.grado \
-    JOIN PERSONAL ON SECCION.PERSONAL_personal = PERSONAL.id_personal');
+            const secciones = yield database_1.default.query('select seccion.seccion, seccion.nombre, seccion.estado, grado.nombre as "nombre_grado", \
+    personal.nombre as "nombre_personal", grado.grado, personal.id_personal from seccion join grado on seccion.grado_grado = grado.grado \
+    join personal on seccion.personal_personal = personal.id_personal');
             res.json(secciones);
         });
     }
     existeSeccion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const seccion = yield database_1.default.query('SELECT * FROM SECCION WHERE nombre = ?', [emp.nombre]);
+            const seccion = yield database_1.default.query('select * from seccion where nombre = ?', [emp.nombre]);
             if (isEmptyObject(seccion)) {
                 res.json({ existe: false });
             }
@@ -224,63 +224,63 @@ class ApiController {
     crearSeccion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const seccion = yield database_1.default.query('INSERT INTO SECCION (nombre, estado, GRADO_grado, PERSONAL_personal, CICLO_ciclo) \
-    VALUES (?,?,?,?,?)', [emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo]);
+            const seccion = yield database_1.default.query('insert into seccion (nombre, estado, grado_grado, personal_personal, ciclo_ciclo) \
+    values (?,?,?,?,?)', [emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo]);
             res.json(seccion);
         });
     }
     eliminarSeccion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const seccion = yield database_1.default.query('DELETE FROM SECCION WHERE seccion=?', [emp.seccion]);
+            const seccion = yield database_1.default.query('delete from seccion where seccion=?', [emp.seccion]);
             res.json(seccion);
         });
     }
     actualizarSeccion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const seccion = yield database_1.default.query('UPDATE SECCION SET nombre = ?, estado=?, GRADO_grado=?, PERSONAL_personal=?, CICLO_ciclo=? WHERE seccion=?', [emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo, emp.seccion]);
+            const seccion = yield database_1.default.query('update seccion set nombre = ?, estado=?, grado_grado=?, personal_personal=?, ciclo_ciclo=? where seccion=?', [emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo, emp.seccion]);
             res.json(seccion);
         });
     }
     //Personal
     getPersonal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const personal = yield database_1.default.query('SELECT P.id_personal, P.nombre, P.apellido, P.direccion, P.telefono, P.usuario, P.password, P.estado, \
-    ESCUELA.nombre AS "nombre_escuela", TIPO_PERSONAL.nombre AS "nombre_tipo", P.ESCUELA_escuela, P.TIPO_PERSONAL_tipo \
-    FROM PERSONAL P JOIN ESCUELA ON P.ESCUELA_escuela = ESCUELA.escuela \
-    JOIN TIPO_PERSONAL ON P.TIPO_PERSONAL_tipo = TIPO_PERSONAL.tipo');
+            const personal = yield database_1.default.query('select p.id_personal, p.nombre, p.apellido, p.direccion, p.telefono, p.usuario, p.password, p.estado, \
+    escuela.nombre as "nombre_escuela", tipo_personal.nombre as "nombre_tipo", p.escuela_escuela, p.tipo_personal_tipo \
+    from personal p join escuela on p.escuela_escuela = escuela.escuela \
+    join tipo_personal on p.tipo_personal_tipo = tipo_personal.tipo');
             res.json(personal);
         });
     }
     crearPersonal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const personal = yield database_1.default.query('INSERT INTO PERSONAL (nombre, apellido, direccion, telefono, usuario, password, estado, \
-        ESCUELA_escuela, TIPO_PERSONAL_tipo) VALUES (?,?,?,?,?,?,?,?,?)', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.usuario, emp.password, emp.estado, emp.ESCUELA_escuela, emp.TIPO_PERSONAL_tipo]);
+            const personal = yield database_1.default.query('insert into personal (nombre, apellido, direccion, telefono, usuario, password, estado, \
+        escuela_escuela, tipo_personal_tipo) values (?,?,?,?,?,?,?,?,?)', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.usuario, emp.password, emp.estado, emp.ESCUELA_escuela, emp.TIPO_PERSONAL_tipo]);
             res.json(personal);
         });
     }
     eliminarPersonal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const personal = yield database_1.default.query('DELETE FROM PERSONAL WHERE id_personal=?', [emp.id_personal]);
+            const personal = yield database_1.default.query('delete from personal where id_personal=?', [emp.id_personal]);
             res.json(personal);
         });
     }
     actualizarPersonal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const personal = yield database_1.default.query('UPDATE PERSONAL SET nombre =?, apellido=?, direccion=?, telefono=?, usuario=?, \
-     password=?, estado=?, ESCUELA_escuela=?, TIPO_PERSONAL_tipo=? \
-    WHERE id_personal=?', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.usuario, emp.password, emp.estado, emp.ESCUELA_escuela, emp.TIPO_PERSONAL_tipo, emp.id_personal]);
+            const personal = yield database_1.default.query('update personal set nombre =?, apellido=?, direccion=?, telefono=?, usuario=?, \
+     password=?, estado=?, escuela_escuela=?, tipo_personal_tipo=? \
+    where id_personal=?', [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.usuario, emp.password, emp.estado, emp.ESCUELA_escuela, emp.TIPO_PERSONAL_tipo, emp.id_personal]);
             res.json(personal);
         });
     }
     //getEscuelas
     getEscuelas(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const escuelas = yield database_1.default.query('SELECT * FROM ESCUELA');
+            const escuelas = yield database_1.default.query('select * from escuela');
             res.json(escuelas);
         });
     }
@@ -288,67 +288,67 @@ class ApiController {
     getTipoPersonal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const personal = yield database_1.default.query('SELECT TIPO_PERSONAL.nombre AS "nombre_tipo", P.nombre FROM PERSONAL P \
-    JOIN ESCUELA ON P.ESCUELA_escuela = ESCUELA.escuela \
-    JOIN TIPO_PERSONAL ON P.TIPO_PERSONAL_tipo = TIPO_PERSONAL.tipo');
+            const personal = yield database_1.default.query('select tipo_personal.nombre as "nombre_tipo", p.nombre from personal p \
+    join escuela on p.escuela_escuela = escuela.escuela \
+    join tipo_personal on p.tipo_personal_tipo = tipo_personal.tipo');
             res.json(personal);
         });
     }
     //Materias
     getMaterias(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const materias = yield database_1.default.query('SELECT * FROM MATERIA');
+            const materias = yield database_1.default.query('select * from materia');
             res.json(materias);
         });
     }
     crearMateria(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const materia = yield database_1.default.query('INSERT INTO MATERIA (nombre, contenido) \
-    VALUES (?,?)', [emp.nombre, emp.contenido]);
+            const materia = yield database_1.default.query('insert into materia (nombre, contenido) \
+    values (?,?)', [emp.nombre, emp.contenido]);
             res.json(materia);
         });
     }
     eliminarMateria(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const materia = yield database_1.default.query('DELETE FROM MATERIA WHERE materia=?', [emp.materia]);
+            const materia = yield database_1.default.query('delete from materia where materia=?', [emp.materia]);
             res.json(materia);
         });
     }
     actualizarMateria(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const materia = yield database_1.default.query('UPDATE MATERIA SET nombre =?, contenido=? WHERE materia=?', [emp.nombre, emp.contenido, emp.materia]);
+            const materia = yield database_1.default.query('update materia set nombre =?, contenido=? where materia=?', [emp.nombre, emp.contenido, emp.materia]);
             res.json(materia);
         });
     }
     //Bloques
     getBloques(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const bloques = yield database_1.default.query('SELECT * FROM BLOQUE');
+            const bloques = yield database_1.default.query('select * from bloque');
             res.json(bloques);
         });
     }
     crearBloque(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('INSERT INTO BLOQUE (NOMBRE) \
-    VALUES (?)', [emp.nombre]);
+            const bloque = yield database_1.default.query('insert into bloque (nombre) \
+    values (?)', [emp.nombre]);
             res.json(bloque);
         });
     }
     eliminarBloque(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('DELETE FROM BLOQUE WHERE bloque=?', [emp.bloque]);
+            const bloque = yield database_1.default.query('delete from bloque where bloque=?', [emp.bloque]);
             res.json(bloque);
         });
     }
     actualizarBloque(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('UPDATE BLOQUE SET NOMBRE =? WHERE idbloque=?', [emp.nombre, emp.bloque]);
+            const bloque = yield database_1.default.query('update bloque set nombre =? where idbloque=?', [emp.nombre, emp.bloque]);
             res.json(bloque);
         });
     }
@@ -356,7 +356,7 @@ class ApiController {
     getAlumnosAnio(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('SELECT COUNT(*) AS "alumnos" FROM ALUMNO WHERE YEAR(CURDATE())', [emp.nombre, emp.bloque]);
+            const bloque = yield database_1.default.query('select count(*) as "alumnos" from alumno where year(curdate())', [emp.nombre, emp.bloque]);
             res.json(bloque);
         });
     }
@@ -364,7 +364,7 @@ class ApiController {
     getDocentesAnio(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('SELECT COUNT(*) AS "docentes" FROM PERSONAL WHERE YEAR(CURDATE()) AND TIPO_PERSONAL_tipo = 2');
+            const bloque = yield database_1.default.query('select count(*) as "docentes" from personal where year(curdate()) and tipo_personal_tipo = 2');
             res.json(bloque);
         });
     }
@@ -372,8 +372,8 @@ class ApiController {
     alumnosPorYear(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('SELECT YEAR(I.fecha) AS "year", COUNT(A.id_alumno) AS "alumnos" FROM INSCRIPCION I JOIN ALUMNO A ON I.ALUMNO_alumno = A.id_alumno \
-    GROUP BY YEAR(I.fecha)');
+            const bloque = yield database_1.default.query('select year(i.fecha) as "year", count(a.id_alumno) as "alumnos" from inscripcion i join alumno a on i.alumno_alumno = a.id_alumno \
+    group by year(i.fecha)');
             res.json(bloque);
         });
     }
@@ -381,8 +381,8 @@ class ApiController {
     alumnosPorSeccion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let emp = req.body;
-            const bloque = yield database_1.default.query('SELECT A.id_alumno AS "id_alumno", A.nombre AS "nombre_alumno", A.apellido AS "apellido_alumno" FROM INSCRIPCION I \
-    JOIN ALUMNO A ON I.ALUMNO_alumno = A.id_alumno WHERE I.SECCION_seccion=?', [emp.seccion]);
+            const bloque = yield database_1.default.query('select a.id_alumno as "id_alumno", a.nombre as "nombre_alumno", a.apellido as "apellido_alumno" from inscripcion i \
+    join alumno a on i.alumno_alumno = a.id_alumno where i.seccion_seccion=?', [emp.seccion]);
             res.json(bloque);
         });
     }

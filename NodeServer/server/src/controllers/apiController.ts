@@ -16,7 +16,7 @@ class ApiController {
 //Login 
     public async login(req: Request, res: Response) {
         let emp = req.body;
-        const personas = await pool.query('SELECT * FROM PERSONAL WHERE usuario = ? AND password = ?',
+        const personas = await pool.query('select * from personal where usuario = ? and password = ?',
         [emp.usuario, emp.password]);
         res.json(personas);
     }
@@ -24,29 +24,29 @@ class ApiController {
 //Ciclo
 
 public async getCiclos(req: Request, res: Response) {
-    const ciclos = await pool.query('SELECT * FROM CICLO');        
+    const ciclos = await pool.query('select * from ciclo');        
         res.json(ciclos);
     
 }
 
 public async crearCiclo(req: Request, res: Response) {
     let emp = req.body;
-    const ciclo = await pool.query('INSERT INTO CICLO (YEAR) \
-    VALUES (?)',[emp.year]);
+    const ciclo = await pool.query('insert into ciclo (year) \
+    values (?)',[emp.year]);
         res.json(ciclo);
     
 }
 
 public async eliminarCiclo(req: Request, res: Response) {
     let emp = req.body;
-    const ciclo = await pool.query('DELETE FROM CICLO WHERE ciclo=?',[emp.ciclo]);
+    const ciclo = await pool.query('delete from ciclo where ciclo=?',[emp.ciclo]);
     res.json(ciclo);
 }
 
 //Alumnos
     public async existeAlumno(req: Request, res: Response) {
         let emp = req.body;
-        const personas = await pool.query('SELECT * FROM ALUMNO WHERE nombre = ? AND apellido = ? AND id_alumno = ?',
+        const personas = await pool.query('select * from alumno where nombre = ? and apellido = ? and id_alumno = ?',
         [emp.nombre, emp.apellido, emp.idalumno]);
         if(isEmptyObject(personas)){            
             res.json({ existe: false })
@@ -57,29 +57,29 @@ public async eliminarCiclo(req: Request, res: Response) {
     }
 
     public async getAlumnos(req: Request, res: Response) {
-        const alumnos = await pool.query('SELECT * FROM ALUMNO');        
+        const alumnos = await pool.query('select * from alumno');        
             res.json(alumnos);
         
     }
 
     public async crearAlumno(req: Request, res: Response) {
         let emp = req.body;
-        const alumnos = await pool.query('INSERT INTO ALUMNO (NOMBRE,APELLIDO,DIRECCION,TELEFONO,CUI,ENCARGADO,FECHA_NACIMIENTO,ESTADO) \
-        VALUES (?,?,?,?,?,?,?,?)',[emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui, emp.encargado, emp.fecha_nacimiento, emp.estado]);
+        const alumnos = await pool.query('insert into alumno (nombre,apellido,direccion,telefono,cui,encargado,fecha_nacimiento,estado) \
+        values (?,?,?,?,?,?,?,?)',[emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui, emp.encargado, emp.fecha_nacimiento, emp.estado]);
             res.json(alumnos);
         
     }
 
     public async eliminarAlumno(req: Request, res: Response) {
         let emp = req.body;
-        const alumnos = await pool.query('UPDATE ALUMNO SET estado = 0 WHERE id_alumno=?',[emp.id_alumno]);
+        const alumnos = await pool.query('update alumno set estado = 0 where id_alumno=?',[emp.id_alumno]);
         res.json(alumnos);
     }
 
     public async actualizarAlumno(req: Request, res: Response) {
         let emp = req.body;
-        const alumnos = await pool.query('UPDATE ALUMNO SET NOMBRE =?,APELLIDO=?,DIRECCION=?,TELEFONO=?,CUI=?, \
-        ENCARGADO=?,FECHA_NACIMIENTO=?,ESTADO=? WHERE id_alumno=?',[emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui, 
+        const alumnos = await pool.query('update alumno set nombre =?,apellido=?,direccion=?,telefono=?,cui=?, \
+        encargado=?,fecha_nacimiento=?,estado=? where id_alumno=?',[emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.cui, 
             emp.encargado, emp.fecha_nacimiento, emp.estado, emp.id_alumno]);
         
             res.json({ msg: 'Exito: Alumno modificado' })
@@ -90,7 +90,7 @@ public async eliminarCiclo(req: Request, res: Response) {
 
 public async existeAspecto(req: Request, res: Response) {
     let emp = req.body;
-    const aspectos = await pool.query('SELECT * FROM ASPECTO WHERE nombre = ?',
+    const aspectos = await pool.query('select * from aspecto where nombre = ?',
     [emp.nombre]);
     if(isEmptyObject(aspectos)){            
         res.json({ existe: false })
@@ -101,7 +101,7 @@ public async existeAspecto(req: Request, res: Response) {
 }
 
 public async getAspectos(req: Request, res: Response) {
-    const aspectos = await pool.query('SELECT * FROM ASPECTO');        
+    const aspectos = await pool.query('select * from aspecto');        
         res.json(aspectos);
    
     
@@ -109,21 +109,21 @@ public async getAspectos(req: Request, res: Response) {
 
 public async crearAspecto(req: Request, res: Response) {
     let emp = req.body;
-    const aspectos = await pool.query('INSERT INTO ASPECTO (NOMBRE) \
-    VALUES (?)',[emp.nombre]);
+    const aspectos = await pool.query('insert into aspecto (nombre) \
+    values (?)',[emp.nombre]);
         res.json(aspectos);
     
 }
 
 public async eliminarAspecto(req: Request, res: Response) {
     let emp = req.body;
-    const aspectos = await pool.query('DELETE FROM ASPECTO WHERE aspecto=? AND nombre=?',[emp.aspecto, emp.nombre]);
+    const aspectos = await pool.query('delete from aspecto where aspecto=? and nombre=?',[emp.aspecto, emp.nombre]);
     res.json(aspectos);
 }
 
 public async actualizarAspecto(req: Request, res: Response) {
     let emp = req.body;
-    const aspectos = await pool.query('UPDATE ASPECTO SET nombre =? WHERE aspecto=?',[emp.nombre, emp.aspecto]);
+    const aspectos = await pool.query('update aspecto set nombre =? where aspecto=?',[emp.nombre, emp.aspecto]);
         res.json(aspectos);
     
 }
@@ -131,7 +131,7 @@ public async actualizarAspecto(req: Request, res: Response) {
 //Grados
 public async existeGrado(req: Request, res: Response) {
     let emp = req.body;
-    const grados = await pool.query('SELECT * FROM GRADO WHERE nombre = ?',
+    const grados = await pool.query('select * from grado where nombre = ?',
     [emp.nombre]);
     if(isEmptyObject(grados)){            
         res.json({ existe: false })
@@ -142,7 +142,7 @@ public async existeGrado(req: Request, res: Response) {
 }
 
 public async getGrados(req: Request, res: Response) {
-    const grados = await pool.query('SELECT * FROM GRADO');        
+    const grados = await pool.query('select * from grado');        
         res.json(grados);
    
     
@@ -150,28 +150,28 @@ public async getGrados(req: Request, res: Response) {
 
 public async crearGrado(req: Request, res: Response) {
     let emp = req.body;
-    const grados = await pool.query('INSERT INTO GRADO (NOMBRE) \
-    VALUES (?);',[emp.nombre]);
+    const grados = await pool.query('insert into grado (nombre) \
+    values (?)',[emp.nombre]);
         res.json(grados);
     
 }
 
 public async eliminarGrado(req: Request, res: Response) {
     let emp = req.body;
-    const grados = await pool.query('DELETE FROM GRADO WHERE grado=? AND nombre=?',[emp.grado, emp.nombre]);
+    const grados = await pool.query('delete from grado where grado=? and nombre=?',[emp.grado, emp.nombre]);
     res.json(grados);
 }
 
 public async actualizarGrado(req: Request, res: Response) {
     let emp = req.body;
-    const grados = await pool.query('UPDATE GRADO SET nombre =? WHERE grado=?',[emp.nombre, emp.grado]);
+    const grados = await pool.query('update grado set nombre =? where grado=?',[emp.nombre, emp.grado]);
         res.json(grados);
     
 }
 //Secciones por grado
 public async getSeccionGrado(req: Request, res: Response) {
     let emp = req.body;
-    const grados = await pool.query('SELECT SECCION.seccion, SECCION.nombre FROM SECCION JOIN GRADO ON SECCION.GRADO_grado = GRADO.grado WHERE GRADO.nombre =?',[emp.nombre]);
+    const grados = await pool.query('select seccion.seccion, seccion.nombre from seccion join grado on seccion.grado_grado = grado.grado where grado.nombre =?',[emp.nombre]);
         res.json(grados);
     
 }
@@ -180,29 +180,29 @@ public async getSeccionGrado(req: Request, res: Response) {
 
 public async crearInscripcion(req: Request, res: Response) {
     let emp = req.body;
-    const inscripcion = await pool.query('INSERT INTO INSCRIPCION VALUES (?,?,?)',[emp.fecha, emp.seccion, emp.alumno]);
+    const inscripcion = await pool.query('insert into inscripcion values (?,?,?)',[emp.fecha, emp.seccion, emp.alumno]);
         res.json(inscripcion);
     
 }
 
 public async eliminarInscripcion(req: Request, res: Response) {
     let emp = req.body;
-    const inscripcion = await pool.query('DELETE FROM INSCRIPCION WHERE SECCION_seccion=? AND ALUMNO_alumno=?',[emp.seccion, emp.alumno]);
+    const inscripcion = await pool.query('delete from inscripcion where seccion_seccion=? and alumno_alumno=?',[emp.seccion, emp.alumno]);
     res.json(inscripcion);
 }
 
 //Secciones
 public async getSecciones(req: Request, res: Response) {
-    const secciones = await pool.query('SELECT SECCION.seccion, SECCION.nombre, SECCION.estado, GRADO.nombre AS "nombre_grado", \
-    PERSONAL.nombre AS "nombre_personal", GRADO.grado, PERSONAL.id_personal FROM SECCION JOIN GRADO ON SECCION.GRADO_grado = GRADO.grado \
-    JOIN PERSONAL ON SECCION.PERSONAL_personal = PERSONAL.id_personal');        
+    const secciones = await pool.query('select seccion.seccion, seccion.nombre, seccion.estado, grado.nombre as "nombre_grado", \
+    personal.nombre as "nombre_personal", grado.grado, personal.id_personal from seccion join grado on seccion.grado_grado = grado.grado \
+    join personal on seccion.personal_personal = personal.id_personal');        
         res.json(secciones);
    
 }
 
 public async existeSeccion(req: Request, res: Response) {
     let emp = req.body;
-    const seccion = await pool.query('SELECT * FROM SECCION WHERE nombre = ?',
+    const seccion = await pool.query('select * from seccion where nombre = ?',
     [emp.nombre]);
     if(isEmptyObject(seccion)){            
         res.json({ existe: false })
@@ -214,21 +214,21 @@ public async existeSeccion(req: Request, res: Response) {
 
 public async crearSeccion(req: Request, res: Response) {
     let emp = req.body;
-    const seccion = await pool.query('INSERT INTO SECCION (nombre, estado, GRADO_grado, PERSONAL_personal, CICLO_ciclo) \
-    VALUES (?,?,?,?,?)',[emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo]);
+    const seccion = await pool.query('insert into seccion (nombre, estado, grado_grado, personal_personal, ciclo_ciclo) \
+    values (?,?,?,?,?)',[emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo]);
         res.json(seccion);
     
 }
 
 public async eliminarSeccion(req: Request, res: Response) {
     let emp = req.body;
-    const seccion = await pool.query('DELETE FROM SECCION WHERE seccion=?',[emp.seccion]);
+    const seccion = await pool.query('delete from seccion where seccion=?',[emp.seccion]);
     res.json(seccion);
 }
 
 public async actualizarSeccion(req: Request, res: Response) {
     let emp = req.body;
-    const seccion = await pool.query('UPDATE SECCION SET nombre = ?, estado=?, GRADO_grado=?, PERSONAL_personal=?, CICLO_ciclo=? WHERE seccion=?',
+    const seccion = await pool.query('update seccion set nombre = ?, estado=?, grado_grado=?, personal_personal=?, ciclo_ciclo=? where seccion=?',
     [emp.nombre, emp.estado, emp.GRADO_grado, emp.PERSONAL_personal, emp.CICLO_ciclo, emp.seccion]);
         res.json(seccion);
     
@@ -236,18 +236,18 @@ public async actualizarSeccion(req: Request, res: Response) {
 
 //Personal
 public async getPersonal(req: Request, res: Response) {
-    const personal = await pool.query('SELECT P.id_personal, P.nombre, P.apellido, P.direccion, P.telefono, P.usuario, P.password, P.estado, \
-    ESCUELA.nombre AS "nombre_escuela", TIPO_PERSONAL.nombre AS "nombre_tipo", P.ESCUELA_escuela, P.TIPO_PERSONAL_tipo \
-    FROM PERSONAL P JOIN ESCUELA ON P.ESCUELA_escuela = ESCUELA.escuela \
-    JOIN TIPO_PERSONAL ON P.TIPO_PERSONAL_tipo = TIPO_PERSONAL.tipo');        
+    const personal = await pool.query('select p.id_personal, p.nombre, p.apellido, p.direccion, p.telefono, p.usuario, p.password, p.estado, \
+    escuela.nombre as "nombre_escuela", tipo_personal.nombre as "nombre_tipo", p.escuela_escuela, p.tipo_personal_tipo \
+    from personal p join escuela on p.escuela_escuela = escuela.escuela \
+    join tipo_personal on p.tipo_personal_tipo = tipo_personal.tipo');        
         res.json(personal);
    
 }
 
 public async crearPersonal(req: Request, res: Response) {
     let emp = req.body;
-    const personal = await pool.query('INSERT INTO PERSONAL (nombre, apellido, direccion, telefono, usuario, password, estado, \
-        ESCUELA_escuela, TIPO_PERSONAL_tipo) VALUES (?,?,?,?,?,?,?,?,?)',
+    const personal = await pool.query('insert into personal (nombre, apellido, direccion, telefono, usuario, password, estado, \
+        escuela_escuela, tipo_personal_tipo) values (?,?,?,?,?,?,?,?,?)',
         [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.usuario, emp.password, emp.estado, emp.ESCUELA_escuela, emp.TIPO_PERSONAL_tipo]);
         res.json(personal);
     
@@ -255,15 +255,15 @@ public async crearPersonal(req: Request, res: Response) {
 
 public async eliminarPersonal(req: Request, res: Response) {
     let emp = req.body;
-    const personal = await pool.query('DELETE FROM PERSONAL WHERE id_personal=?',[emp.id_personal]);
+    const personal = await pool.query('delete from personal where id_personal=?',[emp.id_personal]);
     res.json(personal);
 }
 
 public async actualizarPersonal(req: Request, res: Response) {
     let emp = req.body;
-    const personal = await pool.query('UPDATE PERSONAL SET nombre =?, apellido=?, direccion=?, telefono=?, usuario=?, \
-     password=?, estado=?, ESCUELA_escuela=?, TIPO_PERSONAL_tipo=? \
-    WHERE id_personal=?',
+    const personal = await pool.query('update personal set nombre =?, apellido=?, direccion=?, telefono=?, usuario=?, \
+     password=?, estado=?, escuela_escuela=?, tipo_personal_tipo=? \
+    where id_personal=?',
     [emp.nombre, emp.apellido, emp.direccion, emp.telefono, emp.usuario, emp.password, emp.estado, emp.ESCUELA_escuela, emp.TIPO_PERSONAL_tipo, emp.id_personal]);
         res.json(personal);
     
@@ -271,43 +271,43 @@ public async actualizarPersonal(req: Request, res: Response) {
 
 //getEscuelas
 public async getEscuelas(req: Request, res: Response) {
-    const escuelas = await pool.query('SELECT * FROM ESCUELA');        
+    const escuelas = await pool.query('select * from escuela');        
         res.json(escuelas);   
 }
 
 //Obtener el tipo del personal
 public async getTipoPersonal(req: Request, res: Response) {
     let emp = req.body;
-    const personal = await pool.query('SELECT TIPO_PERSONAL.nombre AS "nombre_tipo", P.nombre FROM PERSONAL P \
-    JOIN ESCUELA ON P.ESCUELA_escuela = ESCUELA.escuela \
-    JOIN TIPO_PERSONAL ON P.TIPO_PERSONAL_tipo = TIPO_PERSONAL.tipo');
+    const personal = await pool.query('select tipo_personal.nombre as "nombre_tipo", p.nombre from personal p \
+    join escuela on p.escuela_escuela = escuela.escuela \
+    join tipo_personal on p.tipo_personal_tipo = tipo_personal.tipo');
     res.json(personal);
 }
 
 //Materias
 public async getMaterias(req: Request, res: Response) {
-    const materias = await pool.query('SELECT * FROM MATERIA');        
+    const materias = await pool.query('select * from materia');        
         res.json(materias);
    
 }
 
 public async crearMateria(req: Request, res: Response) {
     let emp = req.body;
-    const materia = await pool.query('INSERT INTO MATERIA (nombre, contenido) \
-    VALUES (?,?)',[emp.nombre, emp.contenido]);
+    const materia = await pool.query('insert into materia (nombre, contenido) \
+    values (?,?)',[emp.nombre, emp.contenido]);
         res.json(materia);
     
 }
 
 public async eliminarMateria(req: Request, res: Response) {
     let emp = req.body;
-    const materia = await pool.query('DELETE FROM MATERIA WHERE materia=?',[emp.materia]);
+    const materia = await pool.query('delete from materia where materia=?',[emp.materia]);
     res.json(materia);
 }
 
 public async actualizarMateria(req: Request, res: Response) {
     let emp = req.body;
-    const materia = await pool.query('UPDATE MATERIA SET nombre =?, contenido=? WHERE materia=?',
+    const materia = await pool.query('update materia set nombre =?, contenido=? where materia=?',
     [emp.nombre, emp.contenido, emp.materia]);
         res.json(materia);
     
@@ -315,28 +315,28 @@ public async actualizarMateria(req: Request, res: Response) {
 
 //Bloques
 public async getBloques(req: Request, res: Response) {
-    const bloques = await pool.query('SELECT * FROM BLOQUE');        
+    const bloques = await pool.query('select * from bloque');        
         res.json(bloques);
    
 }
 
 public async crearBloque(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('INSERT INTO BLOQUE (NOMBRE) \
-    VALUES (?)',[emp.nombre]);
+    const bloque = await pool.query('insert into bloque (nombre) \
+    values (?)',[emp.nombre]);
         res.json(bloque);
     
 }
 
 public async eliminarBloque(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('DELETE FROM BLOQUE WHERE bloque=?',[emp.bloque]);
+    const bloque = await pool.query('delete from bloque where bloque=?',[emp.bloque]);
     res.json(bloque);
 }
 
 public async actualizarBloque(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('UPDATE BLOQUE SET NOMBRE =? WHERE idbloque=?',
+    const bloque = await pool.query('update bloque set nombre =? where idbloque=?',
     [emp.nombre, emp.bloque]);
         res.json(bloque);
     
@@ -345,7 +345,7 @@ public async actualizarBloque(req: Request, res: Response) {
 //Cantidad de alumnos en el anio actual
 public async getAlumnosAnio(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('SELECT COUNT(*) AS "alumnos" FROM ALUMNO WHERE YEAR(CURDATE())',
+    const bloque = await pool.query('select count(*) as "alumnos" from alumno where year(curdate())',
     [emp.nombre, emp.bloque]);
         res.json(bloque);
     
@@ -354,7 +354,7 @@ public async getAlumnosAnio(req: Request, res: Response) {
 //Cantidad de docentes en el anio actual
 public async getDocentesAnio(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('SELECT COUNT(*) AS "docentes" FROM PERSONAL WHERE YEAR(CURDATE()) AND TIPO_PERSONAL_tipo = 2');
+    const bloque = await pool.query('select count(*) as "docentes" from personal where year(curdate()) and tipo_personal_tipo = 2');
         res.json(bloque);
     
 }
@@ -362,8 +362,8 @@ public async getDocentesAnio(req: Request, res: Response) {
 //Alumnos por años
 public async alumnosPorYear(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('SELECT YEAR(I.fecha) AS "year", COUNT(A.id_alumno) AS "alumnos" FROM INSCRIPCION I JOIN ALUMNO A ON I.ALUMNO_alumno = A.id_alumno \
-    GROUP BY YEAR(I.fecha)');
+    const bloque = await pool.query('select year(i.fecha) as "year", count(a.id_alumno) as "alumnos" from inscripcion i join alumno a on i.alumno_alumno = a.id_alumno \
+    group by year(i.fecha)');
         res.json(bloque);
     
 }
@@ -371,8 +371,8 @@ public async alumnosPorYear(req: Request, res: Response) {
 //Alumnos por seccion especifica
 public async alumnosPorSeccion(req: Request, res: Response) {
     let emp = req.body;
-    const bloque = await pool.query('SELECT A.id_alumno AS "id_alumno", A.nombre AS "nombre_alumno", A.apellido AS "apellido_alumno" FROM INSCRIPCION I \
-    JOIN ALUMNO A ON I.ALUMNO_alumno = A.id_alumno WHERE I.SECCION_seccion=?',
+    const bloque = await pool.query('select a.id_alumno as "id_alumno", a.nombre as "nombre_alumno", a.apellido as "apellido_alumno" from inscripcion i \
+    join alumno a on i.alumno_alumno = a.id_alumno where i.seccion_seccion=?',
     [emp.seccion]);
         res.json(bloque);
     
